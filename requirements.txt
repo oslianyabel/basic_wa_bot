@@ -1,0 +1,36 @@
+# API
+fastapi[standard]
+uvicorn[standard]
+
+# env
+python-dotenv
+
+# logs
+rich
+asgi-correlation-id
+python-json-logger
+
+# AI
+openai
+
+# Security
+python-jose
+python-multipart
+passlib[bcrypt]
+
+# validations
+pydantic-settings
+pydantic[email]
+
+# http client
+aiohttp
+
+# email
+aiosmtplib
+
+# files
+aiofiles
+b2sdk
+
+# Sentry
+sentry-sdk[fastapi]

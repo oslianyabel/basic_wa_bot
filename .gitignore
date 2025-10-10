@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+logs/
+requirements.dev.txt
+.env
+notes.txt
+commands.txt
