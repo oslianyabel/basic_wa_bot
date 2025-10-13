@@ -183,7 +183,6 @@ async def send_whatsapp_message_with_retry(body, to, media=None):
     return False
 
 
-# New helper to mark messages as read via WhatsApp Cloud API
 async def mark_whatsapp_message_as_read(message_id: str) -> bool:
     """Mark an incoming WhatsApp message as read using Meta's API.
 
@@ -222,49 +221,6 @@ async def mark_whatsapp_message_as_read(message_id: str) -> bool:
     except Exception as exc:
         logger.error(f"Error marcando como leído {message_id}: {exc}")
         return False
-
-
-# Backward compatibility functions
-async def send_twilio_message(body, to, media=None):
-    """Backward compatibility wrapper for send_whatsapp_message"""
-    return await send_whatsapp_message(body, to, media)
-
-
-async def send_twilio_message2(body, to, media=None):
-    """Backward compatibility wrapper for send_whatsapp_message_with_retry"""
-    return await send_whatsapp_message_with_retry(body, to, media)
-
-
-async def notify_lead(partner, resume, client_email, lead):
-    subject = "He creado un lead en el Odoo de Orion desde WhatsApp"
-    body = "=" * 50
-    body += f"\nNombre del cliente: {partner['name']}\n"
-    body += f"Teléfono del cliente: {partner['phone']}\n"
-    body += f"Email del cliente: {client_email}\n"
-    body += f"ID del lead: {lead[0][0]}\n"
-    body += f"Nombre del lead: {lead[0][1]}\n"
-    body += f"Resumen de la conversación: \n{resume}"
-
-    if config.ENV_STATE == "prod":
-        await send_email(config.ADMIN_EMAIL, subject, body)  # type: ignore
-
-    await send_email(config.DEV_EMAIL, subject, body)  # type: ignore
-
-
-async def notify_sale_order(email, msg, pdf_path=None):
-    args = {
-        "body": msg,
-    }
-    if pdf_path:
-        args["pdf_path_list"] = [pdf_path]
-
-    await send_email(
-        email_to=email,
-        subject="Se ha creado un presupuesto para usted",
-        **args,
-    )
-
-    logger.info(f"{email} ha sido notificado de su pedido")
 
 
 def send_email_sync(email_to, subject, body, pdf_path=None):
