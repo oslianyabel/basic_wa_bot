@@ -449,6 +449,7 @@ class Agent:
                     functions_called,
                     user_id,
                     self.chat_memory,
+                    rag_functions,
                 )
 
             if custom_tools_called:
@@ -456,6 +457,7 @@ class Agent:
                     custom_tools_called,
                     user_id,
                     self.chat_memory,
+                    rag_functions,
                 )
 
         self.chat_memory._purge_tool_msgs(user_id)
