@@ -34,7 +34,6 @@ class GlobalConfig(BaseConfig):
     PORT: Optional[int] = None
 
     # Others
-    BOT_NUMBER: str
     WORDS_LIMIT: Optional[int] = None
 
 
