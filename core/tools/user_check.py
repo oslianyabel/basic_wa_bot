@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 async def fast_user_check(phone: str) -> str:
-    return user_check(phone, "")
+    return await user_check(phone, "")
 
 
 async def user_check(phone: str, email: str) -> str:
