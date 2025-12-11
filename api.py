@@ -146,6 +146,16 @@ def extract_message_content(webhook_data: dict) -> tuple[str, str, str] | None:
         changes = entry.get("changes", [])[0]
         value = changes.get("value", {})
 
+        metadata = value.get("metadata", {})
+        phone_number_id = metadata.get("phone_number_id", "")
+
+        if phone_number_id != config.WHATSAPP_PHONE_NUMBER_ID:
+            logger.warning(
+                f"Mensaje enviado hacia el numero con id: {phone_number_id}, "
+                f"el id del bot es: {config.WHATSAPP_PHONE_NUMBER_ID}"
+            )
+            return None
+
         # Check if this is a message event
         messages = value.get("messages")
         if not messages:
